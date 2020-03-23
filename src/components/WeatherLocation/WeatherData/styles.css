@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+/* Paleta */
+:root {
+    --color-main: #F9F9F1;
+    --color-letter: #242121;
+    --color-line: #f8c25c;
+    --color-secondary: #065f5f;
+    --color-icon:#ff2047;
+    --color-gray:#4e4b4b;
+}
+
+.App{
+    font-family: "Quicksand", sans-serif;
+    font-size: 17px;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing:antialiased;
+    text-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    background: var(--color-main);
+}
+
+.weatherDataCont{
+    background: var(--color-secondary);
+    border-radius: 5px;
+    padding: 0.5rem;
+    display: flex;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
+.weatherTemperatureCont{
+    background:var(--color-line);
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.6rem;
+    border-radius: 4px;
+    padding: 1em;
+}
+.weatherExtraInfoCont{
+    background: #242121;
+    color: var(--color-line);
+    width:35%;
+    padding: 1.2rem;
+    border-radius: 4px;
+    text-align: left;
+    line-height: 2rem;
+}
+
+.temperature{
+    font-size: 2.4rem;
+    font-weight: 700;
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+}
+.temperatureType{
+    font-size: 1.5rem;
+    color: var(--color-gray);
+}
+.extraInfoText{
+    display: block;
+}
+.wicon{
+    color: var(--color-icon);
+}
