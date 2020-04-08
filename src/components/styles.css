@@ -1,0 +1,14 @@
+@media(max-width: 48em){
+    .locationList{
+        max-height: 35vh;
+        overflow: auto;
+        margin-bottom: 20px;
+    }
+}
+
+.forcast-title{
+    color: white;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

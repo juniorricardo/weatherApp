@@ -1,58 +1,74 @@
-import React, { Component } from 'react';
-import transformWearther from './../../services/transformWeather';
-import { api_weather } from './../../constants/url_api';
-import Location from './Location';
-import WeatherData from './WeatherData';
-import './styles.css';
+import React, { Component } from 'react'
+import { PropTypes } from 'prop-types'
+import transformWearther from './../../services/transformWeather'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import Location from './Location'
+import WeatherData from './WeatherData'
+import getUrlWeatherByCity from './../../services/getUrlWeatherByCity'
+import './styles.css'
 
 class WeatherLocation extends Component {
-
-    constructor() {
-        super();
-        this.state = {
-            city: "Buenos Aires",
-            data: null,
-        };
+  constructor (props) {
+    super(props)
+    const { city } = props
+    this.state = {
+      city,
+      data: null
     }
+  }
 
-    componentDidMount() {
-        console.log("componentDidMount");
-        this.handleUpdateClick();
-    }
-    componentDidUpdate(){
-        console.log("componentDidUpdate");
-    }
+  componentDidMount () {
+    console.log('componentDidMount')
+    this.handleUpdateClick()
+  }
+  componentDidUpdate () {
+    console.log('componentDidUpdate')
+  }
 
-    handleUpdateClick = () => {
-        fetch(api_weather).then((resolve) => {
-            return resolve.json();
-        }).then(data => {
-            const newData = transformWearther(data);
+  handleUpdateClick = () => {
+    const api_weather = getUrlWeatherByCity(this.state.city)
+    fetch(api_weather)
+      .then(resolve => {
+        return resolve.json()
+      })
+      .then(data => {
+        const newData = transformWearther(data)
 
-            console.log(newData);
+        this.setState({
+          data: newData
+        })
+      })
+  }
 
-            this.setState({
-                data: newData
-            });
-        });        
-    }
-
-    render() {
-        const { city, data } = this.state;
-        return (
-            <div className="weatherLocationCont">
-                <Location city={city}></Location>
-                { data ? 
-                    <WeatherData data={data}></WeatherData> :
-                    "Recuperando informacion..."
-                }
-                <button onClick={this.handleUpdateClick}>Actualizar</button>
-            </div>
-        );
-    }
+  render () {
+    const { onWeatherLocationClick } = this.props
+    const { city, data } = this.state
+    return (
+      <Card className='weatherLocationCont' onClick={onWeatherLocationClick}>
+        <div className='locationCont'>
+          <Location className='nameCity' city={city}></Location>
+          {data ? (
+            <WeatherData data={data}></WeatherData>
+          ) : (
+            <CircularProgress size={70} />
+          )}
+          {/* <Button variant='contained' color='primary'>
+            Update
+          </Button> */}
+        </div>
+      </Card>
+    )
+  }
 }
 
-export default WeatherLocation;
+WeatherLocation.propType = {
+  city: PropTypes.string.isRequired,
+  onWeatherLocationClick: PropTypes.func
+}
+
+export default WeatherLocation
 
 /*
 let v = new Promise((resolve, rejected) => {

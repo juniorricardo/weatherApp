@@ -9,6 +9,7 @@
 }
 .locationCont{
     text-align: left;
+    overflow: hidden;
 }
 
 .locationCont .nameCity{
@@ -16,11 +17,17 @@
     line-height: 3rem;
     margin: 0px;
     color: var(--color-letter);
+    white-space: nowrap;
 }
 
 .weatherLocationCont{
-    width: 45rem;
-    padding:25px;
+    width: cal(100% - 20px);
+    height: 180px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    min-width: 350px;
+    box-sizing: border-box;
     margin: 10px auto;
     justify-content: center;
     align-items: center;
