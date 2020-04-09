@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import shortid from 'shortid'
 import PropTypes from 'prop-types'
 import transformForecast from './../services/transformForecast'
 import ForecastItem from './ForecastItem'
@@ -24,16 +25,24 @@ class ForescastExtended extends Component {
   }
 
   componentDidMount () {
-    const url_forecast = `${url}?q=${this.props.city}&appid=${api_key}`
+    console.log('ComponentDidMount Forecast')
+    this.updateCity(this.props.city)
+  }
+  componentWillReceiveProps(nextProps){
+    if (nextProps !== this.props.city) {
+      this.updateCity(nextProps)
+    }
+  }
+  updateCity = city => {
+    console.log(city)
+    const url_forecast = `${url}?q=${city}&appid=${api_key}`
     fetch(url_forecast)
       .then(data => data.json())
       .then(weather_data => {
-        console.log(weather_data)
-        const forecastData = transformForecast(weather_data)
-        console.log(forecastData)
-        this.setState({
-          forecastData
-        })
+        // console.log(weather_data)
+        const nuevo = transformForecast(weather_data)
+        // console.log(nuevo)
+        this.setState({ forecastData: nuevo })
       })
   }
 
@@ -43,11 +52,14 @@ class ForescastExtended extends Component {
         weekDay={day.weekday}
         hour={day.hour}
         data={day.data}
+        key={shortid.generate()}
       ></ForecastItem>
     ))
   }
 
-  renderProgress = forecastData => {}
+  renderProgress = () => {
+    return <h3>Cargando pronostica extendido..</h3>
+  }
 
   render () {
     const { city } = this.props

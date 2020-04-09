@@ -11,8 +11,9 @@
 
 .details{
   background: #999;
-  height: 100vh;
+  height: 85vh;
   width: 100%;
+  overflow: auto;
 }
 
 /* .App-logo {
