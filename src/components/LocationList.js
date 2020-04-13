@@ -1,7 +1,8 @@
 import React from 'react'
-import WeatherLocation from './WeatherLocation'
 import PropTypes from 'prop-types'
 import './styles.css'
+import { Box } from '@material-ui/core';
+import WeatherLocation from './WeatherLocation'
 
 const LocationList = ({ cities, onSelectedLocation }) => {
   const handleWeatherLocationClick = city => {
@@ -19,8 +20,10 @@ const LocationList = ({ cities, onSelectedLocation }) => {
     ))
 
   return (
-    <div className="locationList">
-      {convertStrToComponents(cities)}
+    <div className="location-list">
+      <Box width="100%">
+        {convertStrToComponents(cities)}
+      </Box>
     </div>
   )
 }

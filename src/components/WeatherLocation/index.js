@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import { PropTypes } from 'prop-types'
 import transformWearther from './../../services/transformWeather'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
+import {Card,CardActionArea} from '@material-ui/core'
 import Location from './Location'
 import WeatherData from './WeatherData'
 import getUrlWeatherByCity from './../../services/getUrlWeatherByCity'
 import './styles.css'
 
 class WeatherLocation extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     const { city } = props
     this.state = {
@@ -19,11 +18,11 @@ class WeatherLocation extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     console.log('componentDidMount')
     this.handleUpdateClick()
   }
-  componentDidUpdate () {
+  componentDidUpdate() {
     console.log('componentDidUpdate')
   }
 
@@ -42,22 +41,21 @@ class WeatherLocation extends Component {
       })
   }
 
-  render () {
+  render() {
     const { onWeatherLocationClick } = this.props
     const { city, data } = this.state
     return (
       <Card className='weatherLocationCont' onClick={onWeatherLocationClick}>
-        <div className='locationCont'>
-          <Location className='nameCity' city={city}></Location>
-          {data ? (
-            <WeatherData data={data}></WeatherData>
-          ) : (
-            <CircularProgress size={70} />
-          )}
-          {/* <Button variant='contained' color='primary'>
-            Update
-          </Button> */}
-        </div>
+        <CardActionArea>
+          <div className='locationCont'>
+            <Location className='nameCity' city={city}/>
+            {data ? (
+              <WeatherData data={data}></WeatherData>
+            ) : (
+                <CircularProgress size={70} />
+              )}
+          </div>
+        </CardActionArea>
       </Card>
     )
   }

@@ -4,9 +4,9 @@ import { PropTypes } from 'prop-types'
 
 const ForecastItem = ({ weekDay, hour, data }) => (
   <div>
-    <div>
-      {weekDay} Hora: {hour}
-    </div>
+    <h2 className='display-4'>
+      {weekDay} - {hour}
+    </h2>
     <WeatherData data={data}></WeatherData>
   </div>
 )

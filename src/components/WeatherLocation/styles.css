@@ -13,6 +13,7 @@
 }
 
 .locationCont .nameCity{
+    font-family: "Quicksand", sans-serif !important;
     font-size: 2.25rem;
     line-height: 3rem;
     margin: 0px;

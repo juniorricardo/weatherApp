@@ -1,52 +1,42 @@
 import React, { Component } from 'react'
 import shortid from 'shortid'
 import PropTypes from 'prop-types'
-import transformForecast from './../services/transformForecast'
-import ForecastItem from './ForecastItem'
 import './styles.css'
+import ForecastItem from './ForecastItem'
+import LinearProgress from '@material-ui/core/LinearProgress';
+import transformForecast from './../services/transformForecast'
 
-// const days = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes']
-
-// const data = {
-//   temperature: 10,
-//   weatherState: 'nublado',
-//   humidity: 10,
-//   wind: 'fuerte'
-// }
 const api_key = '1a663d2e10908df23d8e0622c0fdedf9'
 const url = 'https://api.openweathermap.org/data/2.5/forecast'
 
 class ForescastExtended extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       forecastData: null
     }
   }
 
-  componentDidMount () {
-    console.log('ComponentDidMount Forecast')
+  componentDidMount() {
     this.updateCity(this.props.city)
   }
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props.city) {
-      this.updateCity(nextProps)
+      this.setState({ forecastData: null })
+      this.updateCity(nextProps.city)
     }
   }
   updateCity = city => {
-    console.log(city)
     const url_forecast = `${url}?q=${city}&appid=${api_key}`
     fetch(url_forecast)
       .then(data => data.json())
       .then(weather_data => {
-        // console.log(weather_data)
         const nuevo = transformForecast(weather_data)
-        // console.log(nuevo)
         this.setState({ forecastData: nuevo })
       })
   }
 
-  renderForecastItemsDays (forecastData) {
+  renderForecastItemsDays(forecastData) {
     return forecastData.map(day => (
       <ForecastItem
         weekDay={day.weekday}
@@ -58,10 +48,14 @@ class ForescastExtended extends Component {
   }
 
   renderProgress = () => {
-    return <h3>Cargando pronostica extendido..</h3>
+    return (
+      <div className='container'>
+        <LinearProgress />
+      </div>
+    )
   }
 
-  render () {
+  render() {
     const { city } = this.props
     const { forecastData } = this.state
     return (
